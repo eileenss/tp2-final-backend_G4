@@ -8,7 +8,7 @@ router.get("/", async function (req, res, next) {
   try {
     const libros = await controller.getAllLibros();
     res.json(libros);
-  } catch {
+  } catch (error) {
     console.error(error);
     res.status(500).send("Error al obtener libros");
   }
