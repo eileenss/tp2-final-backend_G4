@@ -1,6 +1,7 @@
 const users = require("../data/users");
 
 async function addUser(newUser) {
+  newUser.rol = "user";
   return users.addUser(newUser);
 }
 

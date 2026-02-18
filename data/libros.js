@@ -53,7 +53,7 @@ async function deleteLibro(id) {
   const result = await connectiondb
     .db(DATABASE)
     .collection(LIBROS)
-    .deleteOne(libro);
+    .deleteOne({_id: new ObjectId(id)});
   return result;
 }
 

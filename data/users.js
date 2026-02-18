@@ -6,12 +6,18 @@ const bcrypt = require("bcrypt");
 const Jwt = require("jsonwebtoken");
 
 async function addUser(user) {
-  user.password = await bcrypt.hash(user.password, 8);
+  const newUser = {
+    dni: user.dni,
+    userName: user.userName,
+    email: user.email,
+    rol: "user"
+  };
+  newUser.password = await bcrypt.hash(user.password, 8);
   const connection = await conn.getConnection();
   const result = await connection
     .db(DATABASE)
     .collection(USERS)
-    .insertOne(user);
+    .insertOne(newUser);
 
   return result;
 }
@@ -38,7 +44,7 @@ async function generateToken(user) {
       _id: user._id,
       username: user.userName,
       email: user.email,
-      rol: user.rol,
+      rol: user.rol
     },
     "clavesecreta"
   );

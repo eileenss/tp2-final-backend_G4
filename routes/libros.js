@@ -31,10 +31,13 @@ router.post("/addLibro", async (req, res) => {
   try {
     const newLibro = req.body;
     const result = await controller.addLibro(newLibro);
-    res.status(201).json("Libro agregado con éxito");
+    res.status(201).json({
+      message: "Libro agregado con éxito",
+      id: result.insertedId
+  });
   } catch (error) {
     console.log(error);
-    res.status(400).send("Error al crear libro");
+    res.status(400).json({message: "Error al crear libro"});
   }
 });
 
@@ -46,10 +49,10 @@ router.delete("/deleteLibro/:id", async (req, res) => {
     if (result.deletedCount === 0) {
       return res.status(400).json({ message: "Libro no encontrado" });
     }
-    res.status(204).send();
+    res.status(200).json({message: "Libro eliminado"});
   } catch (error) {
     console.log(error);
-    res.status(400).send("Error al eliminar libro");
+    res.status(400).json({message: "Error al eliminar libro"});
   }
 });
 

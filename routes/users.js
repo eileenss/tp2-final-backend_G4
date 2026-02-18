@@ -9,7 +9,8 @@ router.get("/", function (req, res, next) {
 
 router.post("/register", async (req, res) => {
   try {
-    const newUser = req.body;
+    const {dni, userName, email, password } = req.body;
+    const newUser = {dni, userName, email, password};
     const result = await controllerUser.addUser(newUser);
     res.send(result);
   } catch (error) {
